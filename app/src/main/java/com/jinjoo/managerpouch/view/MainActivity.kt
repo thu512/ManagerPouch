@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavigation()
+        //need add appbar
     }
 
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container) as NavHostFragment
         val navController = navHostFragment.findNavController()
         binding.mainBottomNavigation.setupWithNavController(navController)
-
     }
 }
