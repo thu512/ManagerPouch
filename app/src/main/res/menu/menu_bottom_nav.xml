@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/pouch_icon"
+        android:title="@string/pouch" />
+
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/plus_icon"
+        android:title="@string/add_item" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/setting_icon"
+        android:title="@string/settings" />
+</menu>
