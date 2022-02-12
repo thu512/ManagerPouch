@@ -6,7 +6,7 @@
         android:title="@string/pouch" />
 
     <item
-        android:id="@+id/add"
+        android:id="@+id/add_item"
         android:icon="@drawable/plus_icon"
         android:title="@string/add_item" />
 
