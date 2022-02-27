@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_bar"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
-        android:paddingHorizontal="100dp"
+
         android:clipToPadding="false"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

@@ -22,7 +22,7 @@ class CategoryTabListAdapter :
     private var categoryList: ArrayList<String> =
         PouchApplication.getApplicationContext().resources.getStringArray(R.array.category_array)
             .toCollection(ArrayList())
-    val itemClickSubject: PublishSubject<Int> = PublishSubject.create()
+    val itemClickSubject: PublishSubject<Pair<Int, Int>> = PublishSubject.create()
     private var preSelectedPosition: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryTabViewHolder {
@@ -39,9 +39,10 @@ class CategoryTabListAdapter :
                 .clicks()
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .subscribe {
+                    notifyItemChanged(preSelectedPosition)
+                    notifyItemChanged(position)
+                    itemClickSubject.onNext(Pair(position, holder.itemView.width))
                     preSelectedPosition = position
-                    notifyDataSetChanged()
-                    itemClickSubject.onNext(position)
                 }
         )
         tabSelected(holder, position)
@@ -78,11 +79,6 @@ class CategoryTabListAdapter :
         itemClickSubject.onComplete()
         compositeDisposable.clear()
     }
-
-    fun getList(): ArrayList<String> {
-        return categoryList
-    }
-
 
     inner class CategoryTabViewHolder(val binding: TabItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.jinjoo.managerpouch.PouchApplication
 import com.jinjoo.managerpouch.databinding.FragmentMainBinding
 import com.jinjoo.managerpouch.util.autoCleared
 import com.jinjoo.managerpouch.viewmodel.MainViewModel
 import io.reactivex.disposables.CompositeDisposable
-import java.lang.Integer.max
 
 class MainFragment : Fragment() {
 
@@ -44,23 +44,23 @@ class MainFragment : Fragment() {
     }
 
     private fun initCategoryTab() {
-        val adapter = CategoryTabListAdapter().apply { setHasStableIds(true) }
+        val adapter = CategoryTabListAdapter()
         compositeDisposable.add(adapter.itemClickSubject.subscribe {
-            scrollSelectedItemToCenter(it)
+            scrollSelectedItemToCenter(it.first, it.second)
         })
 
         binding.categoryTabList.apply {
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             this.adapter = adapter
-            scrollSelectedItemToCenter(0)
+            scrollToPosition(0)
         }
     }
 
-    private fun scrollSelectedItemToCenter(selectedPosition: Int) {
+    private fun scrollSelectedItemToCenter(selectedPosition: Int, itemWidth: Int) {
         val layoutManager = binding.categoryTabList.layoutManager as? LinearLayoutManager
-
-        val centerOfScreen: Int = binding.categoryTabList.width / 2
+        val screenWidth = PouchApplication.getApplicationContext().resources.displayMetrics.widthPixels
+        val centerOfScreen: Int = screenWidth / 2 - itemWidth/2
         layoutManager!!.scrollToPositionWithOffset(selectedPosition, centerOfScreen)
-
     }
 
 }
